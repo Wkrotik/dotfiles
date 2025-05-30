@@ -10,4 +10,4 @@
 - cd into the cloned directory
 - `stow .`
 
-or just `git clone https://github.com/Wkrotik/dotfiles && cd dotfiles && stow .` ```stow .```
+or just `git clone https://github.com/Wkrotik/dotfiles && cd dotfiles && stow .`
