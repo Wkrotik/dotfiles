@@ -9,9 +9,10 @@
     // Choose the order of the modules
     "modules-left": [
         "hyprland/workspaces",
-        "hyprland/submap",
-        "sway/scratchpad",
-        "custom/media"
+	"tray",
+	"custom/lock",
+	"custom/reboot",
+	"custom/power"
     ],
     "modules-center": [
         "hyprland/window"
@@ -29,9 +30,7 @@
         "hyprland/language",
         "battery",
         "battery#bat2",
-        "clock",
-        "tray",
-        "custom/power"
+        "clock"
     ],
     // Modules configuration
     // "sway/workspaces": {
@@ -50,6 +49,46 @@
     //         "default": ""
     //     }
     // },
+
+    "hyprland/workspaces": {
+    "disable-scroll": false,
+    "all-outputs": false,
+    "format": "{icon}",
+    "on-click": "activate",
+    "persistent-workspaces": {
+    "*":[1,2]
+    },
+    "format-icons": {
+      "1": "󰣇",
+      "2": "󰈹",
+      "3": "3",
+      "4": "4",
+      "5": "5",
+      "6": "6",
+      "7": "7",
+      "8": "8",
+      "9": "9",
+      "10": "10",
+      "default": ""
+     }
+    },
+
+    "custom/lock": {
+  "format": "<span color='#00FFFF'>  </span>",
+  "on-click": "hyprlock",
+  "tooltip": false
+  },
+  "custom/reboot": {
+    "format": "<span color='#FFD700'>  </span>",
+    "on-click": "systemctl reboot",
+    "tooltip": false
+  },
+  "custom/power": {
+    "format": "<span color='#FF4040'>  </span>",
+    "on-click": "systemctl poweroff",
+    "tooltip": false
+  },
+
     "keyboard-state": {
         "numlock": true,
         "capslock": true,
@@ -120,7 +159,7 @@
         "tooltip": false
     },
     "memory": {
-        "format": "{}% "
+        "format": "{}% "
     },
     "temperature": {
         // "thermal-zone": 2,
@@ -128,7 +167,7 @@
         "critical-threshold": 80,
         // "format-critical": "{temperatureC}°C {icon}",
         "format": "{temperatureC}°C {icon}",
-        "format-icons": ["", "", ""]
+        "format-icons": ["", "", ""]
     },
     "backlight": {
         // "device": "acpi_video1",
@@ -175,12 +214,12 @@
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "{volume}% {icon} {format_source}",
+        "format": "{volume}% {icon}",
         "format-bluetooth": "{volume}% {icon} {format_source}",
         "format-bluetooth-muted": " {icon} {format_source}",
         "format-muted": " {format_source}",
-        "format-source": "{volume}% ",
-        "format-source-muted": "",
+//        "format-source": "{volume}% ",
+//        "format-source-muted": "",
         "format-icons": {
             "headphone": "",
             "hands-free": "",
@@ -204,16 +243,16 @@
         "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
     },
-    "custom/power": {
-        "format" : "⏻ ",
-		"tooltip": false,
-		"menu": "on-click",
-		"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
-		"menu-actions": {
-			"shutdown": "shutdown",
-			"reboot": "reboot",
-			"suspend": "systemctl suspend",
-			"hibernate": "systemctl hibernate"
-		}
-    }
+//    "custom/power": {
+//        "format" : "⏻ ",
+//		"tooltip": false,
+//		"menu": "on-click",
+//		"menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
+//		"menu-actions": {
+//			"shutdown": "shutdown",
+//			"reboot": "reboot",
+//			"suspend": "systemctl suspend",
+//			"hibernate": "systemctl hibernate"
+//		}
+//    }
 }
