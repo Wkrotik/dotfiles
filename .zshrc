@@ -125,3 +125,7 @@ function y() {
 
 
 export EDITOR='nvim'
+
+# Created by `pipx` on 2025-06-08 09:48:28
+export PATH="$PATH:/home/neo/.local/bin"
+eval "$(pyenv init -)"
