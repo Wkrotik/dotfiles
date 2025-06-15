@@ -1,3 +1,6 @@
+#NOT DONE
+
+
 #getting yay & stow
 sudo pacman -S --needed git base-devel stow -y
 git clone https://aur.archlinux.org/yay.git
