@@ -6,9 +6,17 @@
 spawn-at-startup "xwayland-satellite"
 // Or, if you built it by hand:
 // spawn-at-startup "~/path/to/code/target/release/xwayland-satellite"
-
 environment {
     DISPLAY ":1"
+}
+
+spawn-at-startup "wl-paste --watch cliphist store"
+
+// Disable the hot corners.
+gestures {
+    hot-corners {
+        off
+    }
 }
 
 // Input device configuration.
@@ -68,7 +76,7 @@ input {
 
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    // focus-follows-mouse max-scroll-amount="0%"
+    //focus-follows-mouse max-scroll-amount="80%"
 }
 
 // You can configure outputs by their name, which you can find
@@ -106,6 +114,10 @@ output "eDP-1" {
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
     position x=0 y=0
+}
+
+hotkey-overlay {
+	skip-at-startup
 }
 
 // Settings that influence how windows are positioned and sized.
@@ -310,10 +322,14 @@ window-rule {
     // This app-id regular expression will work for both:
     // - host Firefox (app-id is "firefox")
     // - Flatpak Firefox (app-id is "org.mozilla.firefox")
-    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    match app-id=r#"librewolf$"# title="^Picture-in-Picture$"
     open-floating true
 }
+window-rule {
+    match app-id="librewolf$"
 
+    open-maximized true
+}
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
 /-window-rule {
@@ -343,15 +359,15 @@ binds {
     //
     // Most actions that you can bind here can also be invoked programmatically with
     // `niri msg action do-something`.
-	Mod+Shift+Q hotkey-overlay-title="Open the browser: librewolf" {spawn "librewolf";}
+	Mod+Shift+Return hotkey-overlay-title="Open the browser: librewolf" {spawn "librewolf";}
 	Mod+E {spawn "nautilus";}
-
+	Mod+W {spawn "cliphist" "list" "|" "fuzzel" "-dmenu" "|" "cliphist" "decode" "|" "wl-copy";}
     // Mod-Shift-/, which is usually the same as Mod-?,
     // shows a list of important hotkeys.
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Q hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
+    Mod+Return hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
     Mod+R hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
 
@@ -374,25 +390,21 @@ binds {
     // or do a four-finger swipe up on a touchpad.
     Mod+O repeat=false { toggle-overview; }
 
-    Mod+W { close-window; }
+    Mod+Shift+Q { close-window; }
 
-    Mod+Left  { focus-column-left; }
-    Mod+Down  { focus-window-down; }
-    Mod+Up    { focus-window-up; }
-    Mod+Right { focus-column-right; }
     Mod+H     { focus-column-left; }
     Mod+J     { focus-window-down; }
     Mod+K     { focus-window-up; }
     Mod+L     { focus-column-right; }
 
-    Mod+Shift+Left  { move-column-left; }
-    Mod+Shift+Down  { move-window-down; }
-    Mod+Shift+Up    { move-window-up; }
-    Mod+Shift+Right { move-column-right; }
-    Mod+Shift+H     { move-column-left; }
-    Mod+Shift+J     { move-window-down; }
-    Mod+Shift+K     { move-window-up; }
-    Mod+Shift+L     { move-column-right; }
+    Mod+Left  { move-column-left; }
+    Mod+Down  { move-window-down; }
+    Mod+Up    { move-window-up; }
+    Mod+Right { move-column-right; }
+   // Mod+Shift+H     { move-column-left; }
+   // Mod+Shift+J     { move-window-down; }
+   // Mod+Shift+K     { move-window-up; }
+   // Mod+Shift+L     { move-column-right; }
 
     // Alternative commands that move across workspaces when reaching
     // the first or last window in a column.
@@ -406,23 +418,23 @@ binds {
     Mod+Ctrl+Home { move-column-to-first; }
     Mod+Ctrl+End  { move-column-to-last; }
 
-    Mod+Shift+Ctrl+Left  { focus-monitor-left; }
-    Mod+Shift+Ctrl+Down  { focus-monitor-down; }
-    Mod+Shift+Ctrl+Up    { focus-monitor-up; }
-    Mod+Shift+Ctrl+Right { focus-monitor-right; }
-    Mod+Shift+Ctrl+H     { focus-monitor-left; }
-    Mod+Shift+Ctrl+J     { focus-monitor-down; }
-    Mod+Shift+Ctrl+K     { focus-monitor-up; }
-    Mod+Shift+Ctrl+L     { focus-monitor-right; }
+    Mod+Shift+Left  { focus-monitor-left; }
+    Mod+Shift+Down  { focus-monitor-down; }
+    Mod+Shift+Up    { focus-monitor-up; }
+    Mod+Shift+Right { focus-monitor-right; }
+   // Mod+Shift+Ctrl+H     { focus-monitor-left; }
+   // Mod+Shift+Ctrl+J     { focus-monitor-down; }
+   // Mod+Shift+Ctrl+K     { focus-monitor-up; }
+   // Mod+Shift+Ctrl+L     { focus-monitor-right; }
 
     Mod+Ctrl+Left  { move-column-to-monitor-left; }
     Mod+Ctrl+Down  { move-column-to-monitor-down; }
     Mod+Ctrl+Up    { move-column-to-monitor-up; }
     Mod+Ctrl+Right { move-column-to-monitor-right; }
-    Mod+Ctrl+H     { move-column-to-monitor-left; }
-    Mod+Ctrl+J     { move-column-to-monitor-down; }
-    Mod+Ctrl+K     { move-column-to-monitor-up; }
-    Mod+Ctrl+L     { move-column-to-monitor-right; }
+   // Mod+Ctrl+H     { move-column-to-monitor-left; }
+   // Mod+Ctrl+J     { move-column-to-monitor-down; }
+   // Mod+Ctrl+K     { move-column-to-monitor-up; }
+   // Mod+Ctrl+L     { move-column-to-monitor-right; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
@@ -438,8 +450,8 @@ binds {
     Mod+I              { focus-workspace-up; }
     Mod+Ctrl+Page_Down { move-column-to-workspace-down; }
     Mod+Ctrl+Page_Up   { move-column-to-workspace-up; }
-    Mod+Ctrl+U         { move-column-to-workspace-down; }
-    Mod+Ctrl+I         { move-column-to-workspace-up; }
+    Mod+Shift+J        { move-column-to-workspace-down; }
+    Mod+Shift+K        { move-column-to-workspace-up; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+Page_Down { move-window-to-workspace-down; }
@@ -518,18 +530,18 @@ binds {
     // The following binds move the focused window in and out of a column.
     // If the window is alone, they will consume it into the nearby column to the side.
     // If the window is already in a column, they will expel it out.
-    Mod+BracketLeft  { consume-or-expel-window-left; }
-    Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+Comma  { consume-or-expel-window-left; }
+    Mod+Period { consume-or-expel-window-right; }
 
     // Consume one window from the right to the bottom of the focused column.
-    Mod+Comma  { consume-window-into-column; }
+    //Mod+Comma  { consume-window-into-column; }
     // Expel the bottom window from the focused column to the right.
-    Mod+Period { expel-window-from-column; }
+    //Mod+Period { expel-window-from-column; }
 
     Mod+D { switch-preset-column-width; }
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Ctrl+R { reset-window-height; }
-    Mod+F { maximize-column; }
+    Mod+F allow-inhibiting=false { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
 
     // Expand the focused column to space not taken up by other fully visible columns.
