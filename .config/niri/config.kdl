@@ -10,8 +10,7 @@ environment {
     DISPLAY ":1"
 }
 
-spawn-at-startup "wl-paste --watch cliphist store"
-
+spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 // Disable the hot corners.
 gestures {
     hot-corners {
@@ -27,9 +26,9 @@ input {
         xkb {
             // You can set rules, model, layout, variant and options.
             // For more information, see xkeyboard-config(7).
-			options "caps:escape"
+			options "caps:escape, grp:win_space_toggle"
             // For example:
-            //layout "us,ru"
+            layout "us,ru"
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
         }
 
@@ -56,7 +55,7 @@ input {
     mouse {
         // off
         // natural-scroll
-        // accel-speed 0.2
+        accel-speed -0.4
         // accel-profile "flat"
         // scroll-method "no-scroll"
     }
@@ -326,9 +325,14 @@ window-rule {
     open-floating true
 }
 window-rule {
-    match app-id="librewolf$"
+    match app-id="librewolf"
 
     open-maximized true
+}
+window-rule {
+	match app-id="Waydroid"
+
+	open-maximized true
 }
 // Example: block out two password managers from screen capture.
 // (This example rule is commented out with a "/-" in front.)
@@ -361,7 +365,8 @@ binds {
     // `niri msg action do-something`.
 	Mod+Shift+Return hotkey-overlay-title="Open the browser: librewolf" {spawn "librewolf";}
 	Mod+E {spawn "nautilus";}
-	Mod+W {spawn "cliphist" "list" "|" "fuzzel" "-dmenu" "|" "cliphist" "decode" "|" "wl-copy";}
+	Mod+W {spawn "/bin/sh" "-c" "cliphist list | fuzzel --dmenu --with-nth 2 | cliphist decode | wl-copy";}
+
     // Mod-Shift-/, which is usually the same as Mod-?,
     // shows a list of important hotkeys.
     Mod+Shift+Slash { show-hotkey-overlay; }

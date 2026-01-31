@@ -109,6 +109,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias vim="nvim"
 
 eval "$(zoxide init --cmd cd zsh)"
 
@@ -129,3 +130,4 @@ export EDITOR='nvim'
 # Created by `pipx` on 2025-06-08 09:48:28
 export PATH="$PATH:/home/neo/.local/bin"
 eval "$(pyenv init -)"
+bindkey -v
