@@ -6,8 +6,30 @@ wallpaper_scheme = "m3-tonal-spot"
 [theme.templates]
 enable_builtin_templates = true
 builtin_ids = ["alacritty", "btop", "gtk3", "gtk4", "niri", "qt", "starship"]
-enable_community_templates = false
-community_ids = []
+enable_community_templates = true
+community_ids = [
+  "blender",
+  "fzf",
+  "heroiclauncher",
+  "libreoffice",
+  "obs",
+  "obsidian",
+  "prismlauncher",
+  "pywalfox",
+  "telegram",
+  "thunderbird",
+  "vscode",
+]
+
+[theme.templates.user.brave_origin_nightly]
+input_path = "$XDG_CONFIG_HOME/noctalia/templates/brave-origin-manifest.json"
+output_path = "$XDG_DATA_HOME/noctalia/brave-origin-nightly-theme/manifest.json"
+post_hook = 'bash "${XDG_CONFIG_HOME:-$HOME/.config}/noctalia/scripts/brave-origin-nightly-theme.sh"'
+hook_async = false
+
+[theme.templates.user.equibop]
+input_path = "$XDG_CONFIG_HOME/noctalia/templates/equibop-material.css"
+output_path = "$XDG_CONFIG_HOME/equibop/themes/noctalia-material.theme.css"
 
 [theme.templates.user.tmux]
 input_path = "$XDG_CONFIG_HOME/noctalia/templates/tmux.conf"

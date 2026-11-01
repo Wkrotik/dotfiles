@@ -65,17 +65,41 @@ stow --no-folding --delete --target="$HOME" \
 
 ## Wallpaper-generated colors
 
-Noctalia derives the active palette from the current wallpaper using the `m3-tonal-spot` scheme. It generates colors for:
+Noctalia derives the active palette from the current wallpaper using the `m3-tonal-spot` scheme. Tracked template configuration regenerates colors for:
 
-- Niri
-- Alacritty
-- Starship
-- tmux
-- GTK 3 and GTK 4
-- Qt
-- btop
+- Niri, Alacritty, Starship, tmux, GTK 3/4, Qt, and btop
+- fzf, Obsidian, Code OSS, Thunderbird, LibreWolf/Pywalfox, OBS, and Telegram/AyuGram
+- LibreOffice, Blender, Prism Launcher, Heroic Games Launcher, and Equibop
+- Brave Origin Nightly through a local unpacked Chromium theme
 
-Noctalia's GUI-managed runtime state under `~/.local/state/noctalia` is intentionally not tracked.
+Apply every template after installation or after closing an app that blocked an update:
+
+```bash
+noctalia msg templates-apply
+```
+
+The core Niri, Alacritty, Starship, and tmux palette outputs are tracked so the desktop still has usable colors before Noctalia starts. Other generated application files and Noctalia's GUI-managed state under `~/.local/state/noctalia` are not tracked. Community templates are fetched by Noctalia; the Equibop and Brave Origin Nightly templates are kept in this repository.
+
+### One-time application setup
+
+| Application | One-time step |
+| --- | --- |
+| Obsidian | Set **Base color scheme** to **Adapt to system**. The `noctalia` CSS snippet is generated and enabled automatically. |
+| fzf | Start a new Zsh session; `.zshrc` sources the generated theme. |
+| Code OSS | Install/select **NoctaliaTheme**. The bootstrap script installs the extension when `code` is already available. |
+| Thunderbird | Restart after the first template application. |
+| LibreWolf | Install the [Pywalfox extension](https://addons.mozilla.org/firefox/addon/pywalfox/), then restart LibreWolf once. No separate native host package is needed. |
+| Sidebery | Set **Settings → Appearance → Color scheme** to **Firefox**. It then follows LibreWolf's Pywalfox theme automatically; custom CSS is unnecessary. |
+| Brave Origin Nightly | Open `brave://extensions`, enable Developer mode, and load unpacked from `~/.local/share/noctalia/brave-origin-nightly-theme`. Reload that extension after palette changes. |
+| OBS Studio | Select **Matugen** in the theme settings. |
+| LibreOffice | The bootstrap configures the **Noctalia** theme and Office-like **Tabbed** interface. With LibreOffice closed, run `./scripts/configure-libreoffice.py` to reapply those settings; restart after palette updates. |
+| Blender | No manual step; the template updates Blender preferences headlessly. |
+| Prism Launcher | Select **Matugen** in the theme settings. |
+| Heroic Games Launcher | Set **Custom Themes Path** to `~/.config/heroic/themes`, then select `matugen.css`. |
+| Equibop | Enable `noctalia-material.theme.css` under **Settings → Themes**. |
+| AyuGram / Telegram | Import `~/.config/telegram-desktop/themes/noctalia.tdesktop-theme` through **Choose from file**. Restart after palette changes; re-import only if AyuGram keeps the cached colors. |
+
+Optional GUI applications are not installed by the bootstrap script; their templates remain ready and apply when the applications are present.
 
 ## Local-only programs
 

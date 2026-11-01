@@ -10,6 +10,7 @@ alias lserver="llama-server --models-preset $HOME/.config/llama.cpp/config.ini -
 
 command -v zoxide >/dev/null && eval "$(zoxide init --cmd cd zsh)"
 command -v uv >/dev/null && eval "$(uv generate-shell-completion zsh)"
+[[ -r "${XDG_CONFIG_HOME:-$HOME/.config}/fzf/themes/noctalia.sh" ]] && source "${XDG_CONFIG_HOME:-$HOME/.config}/fzf/themes/noctalia.sh"
 
 export EDITOR="nvim"
 export STARSHIP_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/starship/starship.toml"
