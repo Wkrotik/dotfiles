@@ -3,7 +3,7 @@
 // Check the wiki for a full description of the configuration:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Introduction
 
-spawn-at-startup "noctalia" 
+spawn-at-startup "noctalia"
 
 spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
 // Disable the hot corners.
@@ -325,17 +325,16 @@ window-rule {
     open-maximized true
 }
 window-rule {
-	match app-id="Waydroid"
-
-	open-maximized true
+    match app-id="Waydroid"
+    open-maximized true
 }
 
 // Floating Noctalia settings window.
 window-rule {
-  match app-id="dev.noctalia.Noctalia"
-  open-floating true
-  default-column-width { fixed 1080; }
-  default-window-height { fixed 920; }
+    match app-id="dev.noctalia.Noctalia"
+    open-floating true
+    default-column-width { fixed 1080; }
+    default-window-height { fixed 920; }
 }
 
 // Example: block out two password managers from screen capture.
@@ -367,10 +366,12 @@ binds {
     //
     // Most actions that you can bind here can also be invoked programmatically with
     // `niri msg action do-something`.
-	Mod+Shift+Return hotkey-overlay-title="Open the browser: librewolf" {spawn "librewolf";}
-	Mod+E {spawn "nautilus";}
-	Mod+W {spawn-sh "noctalia msg panel-toggle clipboard"; }
-	Mod+Alt+L {spawn-sh "noctalia msg panel-toggle session"; }
+    // Applications and Noctalia panels.
+    Mod+Shift+Return hotkey-overlay-title="Open the browser: LibreWolf" { spawn "librewolf"; }
+    Mod+E { spawn "nautilus"; }
+    Mod+Shift+X { spawn "/home/neo/Applications/handy.appimage" "--toggle-transcription"; }
+    Mod+W { spawn-sh "noctalia msg panel-toggle clipboard"; }
+    Mod+Alt+L { spawn-sh "noctalia msg panel-toggle session"; }
 
     // Mod-Shift-/, which is usually the same as Mod-?,
     // shows a list of important hotkeys.
@@ -392,9 +393,9 @@ binds {
     XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
-	//Brightness
-	XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "s" "+5%";}
-	XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "s" "5%-";}
+    // Brightness.
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "s" "+5%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "s" "5%-"; }
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
     // or do a four-finger swipe up on a touchpad.
@@ -619,8 +620,8 @@ binds {
 }
 
 debug {
-  // Allows notification actions and window activation from Noctalia.
-  honor-xdg-activation-with-invalid-serial
+    // Allows notification actions and window activation from Noctalia.
+    honor-xdg-activation-with-invalid-serial
 }
 
 

@@ -1,0 +1,16 @@
+[theme]
+mode = "dark"
+source = "wallpaper"
+wallpaper_scheme = "m3-content"
+
+[theme.templates]
+enable_builtin_templates = true
+builtin_ids = ["alacritty", "btop", "gtk3", "gtk4", "niri", "qt", "starship"]
+enable_community_templates = false
+community_ids = []
+
+[theme.templates.user.tmux]
+input_path = "$XDG_CONFIG_HOME/noctalia/templates/tmux.conf"
+output_path = "$XDG_CONFIG_HOME/tmux/themes/noctalia.conf"
+post_hook = 'tmux source-file "${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" 2>/dev/null || true'
+hook_async = false

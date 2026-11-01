@@ -10,7 +10,8 @@
 - ```git clone https://github.com/Wkrotik/dotfiles```
 - cd into the cloned directory
 - ```stow .```
+- ```stow noctalia```
 
-or just ```git clone https://github.com/Wkrotik/dotfiles && cd dotfiles && stow .```
+Noctalia is a separate Stow package because it shares `~/.config/noctalia` with runtime-managed files.
 
 I gotta make a script for this, because it is now a dependency hell
