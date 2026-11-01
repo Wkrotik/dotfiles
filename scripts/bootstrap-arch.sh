@@ -29,6 +29,8 @@ done
 
 stow --no-folding --restow --dir="$repo_dir" --target="$HOME" "${packages[@]}"
 
+"$repo_dir/scripts/configure-equibop.py"
+
 if command -v libreoffice >/dev/null; then
   "$repo_dir/scripts/configure-libreoffice.py" ||
     printf 'Could not configure LibreOffice; close it and run scripts/configure-libreoffice.py again.\n' >&2

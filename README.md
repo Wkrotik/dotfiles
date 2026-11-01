@@ -18,7 +18,7 @@ The active desktop uses:
 | `starship` | `~/.config/starship` |
 | `alacritty` | `~/.config/alacritty` |
 | `tmux` | `~/.config/tmux` |
-| `niri` | `~/.config/niri` |
+| `niri` | `~/.config/niri`, Niri-aware Steam launcher |
 | `noctalia` | Noctalia theme and application templates |
 | `nvim` | LazyVim configuration |
 | `fastfetch` | Fastfetch configuration |
@@ -96,10 +96,12 @@ The core Niri, Alacritty, Starship, and tmux palette outputs are tracked so the 
 | Blender | No manual step; the template updates Blender preferences headlessly. |
 | Prism Launcher | Select **Matugen** in the theme settings. |
 | Heroic Games Launcher | Set **Custom Themes Path** to `~/.config/heroic/themes`, then select `matugen.css`. |
-| Equibop | Enable `noctalia-material.theme.css` under **Settings → Themes**. |
+| Equibop | Enable `noctalia-material.theme.css` under **Settings → Themes**. The bootstrap disables its separate splash screen; `./scripts/configure-equibop.py` reapplies that setting. Its main window opens at the same two-thirds width as one `Mod+D` press. |
 | AyuGram / Telegram | Import `~/.config/telegram-desktop/themes/noctalia.tdesktop-theme` through **Choose from file**. Restart after palette changes; re-import only if AyuGram keeps the cached colors. |
 
 Optional GUI applications are not installed by the bootstrap script; their templates remain ready and apply when the applications are present.
+
+The local Steam desktop entry uses `~/.local/bin/niri-launch-on-workspace` to temporarily preserve the launch workspace and move replacement startup windows back there without following focus. This works around Steam replacing its loading window with a new main window; Steam does not provide a reliable way to disable that splash while still opening the client.
 
 ## Local-only programs
 

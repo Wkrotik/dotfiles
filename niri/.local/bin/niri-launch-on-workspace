@@ -1,0 +1,117 @@
+#!/usr/bin/env python3
+"""Keep replacement startup windows on the Niri workspace where an app was launched."""
+
+import argparse
+import json
+import os
+import re
+import subprocess
+import time
+import uuid
+
+
+def niri(*args: str, check: bool = True) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(
+        ("niri", "msg", *args),
+        check=check,
+        capture_output=True,
+        text=True,
+    )
+
+
+def read_json(kind: str) -> list[dict]:
+    return json.loads(niri("--json", kind).stdout)
+
+
+def launch(command: list[str]) -> subprocess.Popen[str]:
+    return subprocess.Popen(command, start_new_session=True)
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--app-id", required=True, help="regular expression matching Niri app IDs")
+    parser.add_argument("--timeout", type=float, default=180, help="seconds to watch for replacement windows")
+    parser.add_argument("command", nargs=argparse.REMAINDER)
+    args = parser.parse_args()
+
+    command = args.command
+    if command[:1] == ["--"]:
+        command = command[1:]
+    if not command:
+        parser.error("a command is required after --")
+
+    if "NIRI_SOCKET" not in os.environ:
+        launch(command)
+        return 0
+
+    pattern = re.compile(args.app_id)
+    try:
+        workspaces = read_json("workspaces")
+        windows = read_json("windows")
+        focused = next(workspace for workspace in workspaces if workspace["is_focused"])
+    except (json.JSONDecodeError, StopIteration, subprocess.CalledProcessError):
+        launch(command)
+        return 0
+
+    existing_ids = {
+        window["id"] for window in windows if pattern.fullmatch(window.get("app_id") or "")
+    }
+    if existing_ids:
+        launch(command)
+        return 0
+
+    temporary_name = None
+    target = focused.get("name")
+    if not target:
+        temporary_name = f"launch-{os.getpid()}-{uuid.uuid4().hex[:8]}"
+        try:
+            niri(
+                "action",
+                "set-workspace-name",
+                temporary_name,
+                "--workspace",
+                str(focused["idx"]),
+            )
+            target = temporary_name
+        except subprocess.CalledProcessError:
+            target = str(focused["idx"])
+
+    launch(command)
+    seen_ids = existing_ids
+    deadline = time.monotonic() + max(args.timeout, 0)
+
+    try:
+        while time.monotonic() < deadline:
+            try:
+                windows = read_json("windows")
+            except (json.JSONDecodeError, subprocess.CalledProcessError):
+                break
+
+            for window in windows:
+                window_id = window["id"]
+                if window_id in seen_ids or not pattern.fullmatch(window.get("app_id") or ""):
+                    continue
+
+                seen_ids.add(window_id)
+                if window.get("workspace_id") != focused["id"]:
+                    niri(
+                        "action",
+                        "move-window-to-workspace",
+                        target,
+                        "--window-id",
+                        str(window_id),
+                        "--focus",
+                        "false",
+                        check=False,
+                    )
+
+            time.sleep(0.25)
+    finally:
+        if temporary_name:
+            niri("action", "unset-workspace-name", temporary_name, check=False)
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
