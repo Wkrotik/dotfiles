@@ -1,7 +1,7 @@
 [theme]
 mode = "dark"
 source = "wallpaper"
-wallpaper_scheme = "m3-content"
+wallpaper_scheme = "m3-tonal-spot"
 
 [theme.templates]
 enable_builtin_templates = true

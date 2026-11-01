@@ -1,17 +1,27 @@
 # Dotfiles
 
-## What you will need
-- Git
-- Stow
-- Oh my zsh
+GNU Stow packages for the current Niri, Noctalia, Alacritty, Starship, tmux and LazyVim setup.
 
-```sudo apt install git stow```
-## Instructions to use
-- ```git clone https://github.com/Wkrotik/dotfiles```
-- cd into the cloned directory
-- ```stow .```
-- ```stow noctalia```
+## Install on Arch Linux
 
-Noctalia is a separate Stow package because it shares `~/.config/noctalia` with runtime-managed files.
+```bash
+git clone https://github.com/Wkrotik/dotfiles ~/.dotfiles
+cd ~/.dotfiles
+./scripts/bootstrap-arch.sh
+```
 
-I gotta make a script for this, because it is now a dependency hell
+The bootstrap script installs the required packages, keeps Oh My Zsh and its plugins outside this repository, and stows the active configuration packages.
+
+## Stow manually
+
+```bash
+stow --no-folding --restow --target="$HOME" \
+  shell starship alacritty tmux niri noctalia nvim \
+  fastfetch rmpc swaylock
+```
+
+Each top-level application directory is an independent Stow package. `--no-folding` keeps runtime-generated files out of the repository unless the file is explicitly tracked.
+
+## Wallpaper colors
+
+Noctalia uses the current wallpaper with the `m3-tonal-spot` scheme and generates colors for Niri, Alacritty, Starship, tmux, GTK, Qt and btop. Wallpapers remain in `wallpapers/` because Noctalia reads them directly from the repository.
