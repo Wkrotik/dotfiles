@@ -21,6 +21,13 @@ community_ids = [
   "vscode",
 ]
 
+[theme.templates.user.adwaita_folder_icons]
+input_path = "$XDG_CONFIG_HOME/noctalia/templates/adwaita-folder-icons.sh"
+output_path = "$XDG_CACHE_HOME/noctalia/apply-adwaita-folder-icons.sh"
+post_hook = 'bash "${XDG_CACHE_HOME:-$HOME/.cache}/noctalia/apply-adwaita-folder-icons.sh"'
+hook_async = false
+index = 110
+
 [theme.templates.user.brave_origin_nightly]
 input_path = "$XDG_CONFIG_HOME/noctalia/templates/brave-origin-manifest.json"
 output_path = "$XDG_DATA_HOME/noctalia/brave-origin-nightly-theme/manifest.json"
@@ -30,6 +37,13 @@ hook_async = false
 [theme.templates.user.equibop]
 input_path = "$XDG_CONFIG_HOME/noctalia/templates/equibop-material.css"
 output_path = "$XDG_CONFIG_HOME/equibop/themes/noctalia-material.theme.css"
+
+[theme.templates.user.libadwaita]
+input_path = "$XDG_CONFIG_HOME/noctalia/templates/libadwaita.css"
+output_path = "$XDG_CONFIG_HOME/gtk-4.0/noctalia-libadwaita.css"
+post_hook = 'bash "${XDG_CONFIG_HOME:-$HOME/.config}/noctalia/scripts/apply-libadwaita-theme.sh"'
+hook_async = false
+index = 100
 
 [theme.templates.user.tmux]
 input_path = "$XDG_CONFIG_HOME/noctalia/templates/tmux.conf"

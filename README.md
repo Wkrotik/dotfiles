@@ -67,7 +67,7 @@ stow --no-folding --delete --target="$HOME" \
 
 Noctalia derives the active palette from the current wallpaper using the `m3-tonal-spot` scheme. Tracked template configuration regenerates colors for:
 
-- Niri, Alacritty, Starship, tmux, GTK 3/4, Qt, and btop
+- Niri, Alacritty, Starship, tmux, GTK 3/4, Qt, btop, and Adwaita folder icons
 - fzf, Obsidian, Code OSS, Thunderbird, LibreWolf/Pywalfox, OBS, and Telegram/AyuGram
 - LibreOffice, Blender, Prism Launcher, Heroic Games Launcher, and Equibop
 - Brave Origin Nightly through a local unpacked Chromium theme
@@ -88,6 +88,7 @@ The core Niri, Alacritty, Starship, and tmux palette outputs are tracked so the 
 | fzf | Start a new Zsh session; `.zshrc` sources the generated theme. |
 | Code OSS | Install/select **NoctaliaTheme**. The bootstrap script installs the extension when `code` is already available. |
 | Thunderbird | Restart after the first template application. |
+| Nautilus / libadwaita apps | The background and stock Adwaita folder icons follow Noctalia. Fully quit and reopen after palette changes; Nautilus remains in the background, so run `nautilus -q` before reopening it. |
 | LibreWolf | Install the [Pywalfox extension](https://addons.mozilla.org/firefox/addon/pywalfox/), then restart LibreWolf once. No separate native host package is needed. |
 | Sidebery | Set **Settings → Appearance → Color scheme** to **Firefox**. It then follows LibreWolf's Pywalfox theme automatically; custom CSS is unnecessary. |
 | Brave Origin Nightly | Open `brave://extensions`, enable Developer mode, and load unpacked from `~/.local/share/noctalia/brave-origin-nightly-theme`. Reload that extension after palette changes. |
